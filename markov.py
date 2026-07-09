@@ -32,7 +32,6 @@ def clean_and_split_text(text):
     Returns:
     list: A list of words from the text.
     """
- 
     words = text.split()
     return words
 
@@ -40,16 +39,6 @@ def build_markov_chain(words):
     """
     Builds a first-order Markov Chain.
     A Markov Chain maps each word to a list of all words that follow it.
-    
-    Example:
-    If the text is: "the cat sat on the mat"
-    The chain will be:
-    {
-        "the": ["cat", "mat"],
-        "cat": ["sat"],
-        "sat": ["on"],
-        "on": ["the"]
-    }
     
     Parameters:
     words (list): The list of words to process.
@@ -59,12 +48,12 @@ def build_markov_chain(words):
     """
     chain = {}
     
-
     for i in range(len(words) - 1):
         current_word = words[i]
         next_word = words[i + 1]
         
-               if current_word not in chain:
+        # Corrected indentation here (aligned with 8 spaces)
+        if current_word not in chain:
             chain[current_word] = []
         
         chain[current_word].append(next_word)
@@ -146,10 +135,10 @@ def main():
         
     print(f"[*] Loaded {len(words)} words from '{filename}'.")
     
- 
     chain = build_markov_chain(words)
     print(f"[*] Successfully built Markov Chain with {len(chain)} unique words.")
     print("-" * 60)
+    
     start_word = input("Enter a starting word: ").strip()
     while True:
         num_words_input = input("Enter the number of words to generate: ").strip()
@@ -161,6 +150,7 @@ def main():
             break
         except ValueError:
             print("Invalid input. Please enter a valid integer (e.g., 20, 50).")
+            
     generated_story = generate_text(chain, start_word, num_words)
 
     if generated_story:
